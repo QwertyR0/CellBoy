@@ -14,6 +14,20 @@ extern uint8_t savedGame[50][50];
 extern uint8_t savedWidth;
 extern uint8_t savedHeight;
 extern uint8_t fingerPrint[3];
+
+uint8_t promptNumber(char prompt[]);
+void processInputs();
+void drawGame();
+void updateGame(uint8_t state);
+void saveGame();
+void resetSavedGame();
+uint8_t checkIfSavedMap();
+void loadSavedGame();
+void updateCell(int x, int y, uint8_t cellI, uint8_t id, uint8_t dir, uint8_t state);
+uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover);
+uint8_t isPerpendicurlar(uint8_t rot1, uint8_t rot2);
+void adjustInputDelay();
+
 // fill_bkg_rect(0, 0, 20, 18, 0x00); is good for clearing bkg
 
 struct gamec {
@@ -41,19 +55,7 @@ const uint8_t cellLSprites[10] = {2, 6, 10, 14, 17, 19, 20, 21, 24};
 const uint8_t cellUSprites[10] = {3, 7, 11, 15, 18, 19, 20, 21, 22};
 
 uint8_t toX, toY;
-
-uint8_t promptNumber(char prompt[]);
-void processInputs();
-void drawGame();
-void updateGame(uint8_t state);
-void saveGame();
-void resetSavedGame();
-uint8_t checkIfSavedMap();
-void loadSavedGame();
-void updateCell(int x, int y, uint8_t cellI, uint8_t id, uint8_t dir, uint8_t state);
-uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover);
-uint8_t isPerpendicurlar(uint8_t rot1, uint8_t rot2);
-
+uint8_t input_delay = 2;
 uint8_t map[50][50];
 uint8_t resMap[50][50];
 
@@ -107,6 +109,8 @@ void main() {
     } else {
         toY = game.height;
     }
+
+    adjustInputDelay();
 
     // load Cells:
     set_bkg_data(102, 25, Cells);
@@ -179,7 +183,7 @@ void drawGame(){
         for (y = 0; y < toY; y++) {
             for (x = 0; x < toX; x++) {
                 // if doesn't collide with the cell text:
-                if(y != 0 || x < 20 - game.lastOneLength){
+                if(game.running != 0 || ((y != 0 || x < 20 - game.lastOneLength) && (y != 1 || x != 19))){
                     uint8_t cell = (map[x + game.camx][y + game.camy] & 0x3F);
                     if (cell == 0 && get_bkg_xy_addr(x, y) != 0){
                         set_bkg_tile_xy(x, y, 0);
@@ -207,7 +211,7 @@ void drawGame(){
 
         // NOTE: can remove this anytime
         wait_vbl_done();
-        if(game.running != 1){
+        if(game.running == 0 && game.settings == 0){
             char cell_str[25] = "";
             // strcat with using the last 6 bits:
             switch(game.selectedCell & 0x3F) {
@@ -266,7 +270,7 @@ void drawGame(){
                     game.shouldPrintRot = 0;
                 }
             }
-        } else if(get_bkg_tile_xy(19, 0) != 0){
+        } else if(get_bkg_tile_xy(20 - game.lastOneLength, 0) < 102){
             gotoxy(20 - game.lastOneLength, 0);
             for(uint8_t i = 0; i < game.lastOneLength; i++){
                 printf(" ");
@@ -281,7 +285,6 @@ void drawGame(){
 void processInputs() {
     static uint8_t longPresses = 0;
     static uint8_t input_timer = 0;
-    static uint8_t input_delay = 2;
 
     if (input_timer > 0) {
         input_timer--;
@@ -366,9 +369,9 @@ void processInputs() {
             } else {
                 if (game.running == 0){
                     if(game.selectedCell & 0x3F == 0){
-                        map[game.curx][game.cury] = 0;
+                        map[game.curx + game.camx][game.cury + game.camy] = 0;
                     } else {
-                        map[game.curx][game.cury] = game.selectedCell;
+                        map[game.curx + game.camx][game.cury + game.camy] = game.selectedCell;
                     }
                 }
             }
@@ -401,6 +404,7 @@ void processInputs() {
                 game.running = 0;
                 game.settings = 0;
                 game.shouldPrintRot = 1;
+                adjustInputDelay();
             } else {
                 if(longPresses != 2 && game.updateState == 0){
                     if(game.running == 1){
@@ -449,6 +453,7 @@ void processInputs() {
                     set_bkg_data(0, 65, settings_data);
                     set_bkg_tiles(0, 0, 20, 18, settings_map);
                     wait_vbl_done();
+                    adjustInputDelay();
                 }
             }
             input_timer = input_delay;
@@ -1055,5 +1060,17 @@ uint8_t isPerpendicurlar(uint8_t rot1, uint8_t rot2){
         return 1;
     } else {
         return 0;
+    }
+}
+
+void adjustInputDelay(){
+    if(game.settings == 0){
+        if(game.width * game.height > 400){
+            input_delay = 0;
+        } else if(game.width * game.height > 200){
+            input_delay = 1;
+        }
+    } else {
+        input_delay = 2;
     }
 }
