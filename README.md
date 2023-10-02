@@ -1,4 +1,4 @@
-# CellBoy
+![image](https://github.com/QwertyR0/CellBoy/assets/75887918/a74bdd00-019f-4c52-89f2-74fdea52775e)# CellBoy
 A cell machine remake for Gameboy written in C using gbdk2020.
 Original Cell machine by Sam Hogan.
 
@@ -19,3 +19,7 @@ Original Cell machine by Sam Hogan.
 
 # For more info:
 https://discord.gg/3TGmvpeNGa
+
+## Special thanks to:
+- **k**, for making the textures for pre-v1.2 and above.
+- **Blendi Goose**, for helping me with the update order.
