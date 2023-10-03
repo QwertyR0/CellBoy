@@ -22,7 +22,7 @@ jobs:
         run: |
           ./gbdk/bin/lcc -Wa-l -Wf-ba0 -c -o saveState.o src/saveState.c
           ./gbdk/bin/lcc -Wa-l -c -o main.o src/main.c
-          ./gbdk/bin/lcc -Wl-yt3 -Wl-yo4 -Wl-ya4 -o Cellboy.gb main.o saveState.o
+          ./gbdk/bin/lcc -Wl-yt3 -Wl-yo4 -Wl-ya4 -o CellBoy.gb main.o saveState.o
 
       - name: Upload CellBoy
         uses: actions/upload-artifact@v2
