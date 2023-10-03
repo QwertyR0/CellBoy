@@ -9,7 +9,7 @@
 #include "assets/select.c"
 #include "assets/settings_map.c"
 #include "assets/settings_data.c"
-#include "assets/Cells.c"
+#include "assets/cells.c"
 extern uint8_t savedGame[50][50];
 extern uint8_t savedWidth;
 extern uint8_t savedHeight;
