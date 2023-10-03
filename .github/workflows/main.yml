@@ -1,0 +1,31 @@
+name: Build cool game
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Download GBDK-2020
+        run: |
+          wget https://github.com/gbdk-2020/gbdk-2020/releases/download/4.2.0/gbdk-linux64.tar.gz
+          tar -xzvf gbdk-linux64.tar.gz
+
+      - name: Compile CellBoy
+        run: |
+          ./gbdk/bin/lcc -Wa-l -Wf-ba0 -c -o saveState.o src/saveState.c
+          ./gbdk/bin/lcc -Wa-l -c -o main.o src/main.c
+          ./gbdk/bin/lcc -Wl-yt3 -Wl-yo4 -Wl-ya4 -o Cellboy.gb main.o saveState.o
+
+      - name: Upload CellBoy
+        uses: actions/upload-artifact@v2
+        with:
+          name: CellBoy
+          path: CellBoy.gb
