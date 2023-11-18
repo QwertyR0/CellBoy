@@ -5,11 +5,11 @@ A cell machine remake for Gameboy written in C using gbdk2020.
 Original Cell machine by Sam Hogan.
 
 ## Controls:
-**A:** places cell or selects in menu
-**B:** rotates cell
-**Sel:** Switches cell
-**Start:** if pressed steps or runs simulation, if hold opens menu
-**Arrow keys:** moves cursor or selects in menu
+**A:** places cell or selects in menu  
+**B:** rotates cell  
+**Sel:** Switches cell  
+**Start:** if pressed steps or runs simulation, if hold opens menu  
+**Arrow keys:** moves cursor or selects in menu  
 
 ## Notes:
 - Because the lack of buttons You can reset back to first position by opening the menu in step mode
