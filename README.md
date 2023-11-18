@@ -6,9 +6,13 @@ Original Cell machine by Sam Hogan.
 
 ## Controls:
 **A:** places cell or selects in menu  
+
 **B:** rotates cell  
+
 **Sel:** Switches cell  
+
 **Start:** if pressed steps or runs simulation, if hold opens menu  
+
 **Arrow keys:** moves cursor or selects in menu  
 
 ## Notes:
