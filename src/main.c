@@ -1,3 +1,8 @@
+// My habit of using camelCase in JavaScript is evident in this project.
+// Please excuse the disgusting variable names and take this 🍪 cookie on your way down.
+// Enjoy...
+//                                                                           - Oguz 2025
+
 #include <gb/gb.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,6 +15,7 @@
 #include "assets/settings_map.c"
 #include "assets/settings_data.c"
 #include "assets/cells.c"
+
 extern uint8_t savedGame[50][50];
 extern uint8_t savedWidth;
 extern uint8_t savedHeight;
@@ -712,8 +718,7 @@ void updateCell(int x, int y, uint8_t cellI, uint8_t id, uint8_t rot, uint8_t st
     }
 }
 
-
-
+// TODO: Replace the copy-paste logic
 uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover){
     uint8_t state = 0;
     uint8_t totalMoverCount = 0; // todo:
@@ -743,6 +748,7 @@ uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover){
                 } else if(cRot == rot){
                     totalMoverCount++;
                 }
+                
                 distance++;
             } else if((cell == 5 && isPerpendicurlar(cRot, rot) == 1) || cell == 8){
                 state = 1;
@@ -772,6 +778,7 @@ uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover){
                 map[x + i][y] = map[x + i - 1][y];
                 map[x + i - 1][y] = 0;
             }
+            
             return 1;
         } else if(state == 1){
             return 0;
@@ -786,6 +793,7 @@ uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover){
                 map[x + i][y] = map[x + i - 1][y];
                 map[x + i - 1][y] = 0;
             }
+            
             return 1;
         }
     } else if(rot == 1) {
@@ -807,6 +815,7 @@ uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover){
                 } else if(cRot == rot){
                     totalMoverCount++;
                 }
+                
                 distance++;
             } else if((cell == 5 && isPerpendicurlar(cRot, rot) == 1) || cell == 8){
                 state = 1;
@@ -837,6 +846,7 @@ uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover){
                 map[x][y + i] = map[x][y + i - 1];
                 map[x][y + i - 1] = 0;
             }
+            
             return 1;
         } else if(state == 1){
             return 0;
@@ -851,6 +861,7 @@ uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover){
                 map[x][y + i] = map[x][y + i - 1];
                 map[x][y + i - 1] = 0;
             }
+            
             return 1;
         }
     } else if(rot == 2){
@@ -872,6 +883,7 @@ uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover){
                 } else if(cRot == rot){
                     totalMoverCount++;
                 }
+                
                 distance++;
             } else if((cell == 5 && isPerpendicurlar(cRot, rot) == 1) || cell == 8){
                 state = 1;
@@ -902,6 +914,7 @@ uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover){
                 map[x - i][y] = map[x - i + 1][y];
                 map[x - i + 1][y] = 0;
             }
+            
             return 1;
         } else if(state == 1){
             return 0;
@@ -916,6 +929,7 @@ uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover){
                 map[x - i][y] = map[x - i + 1][y];
                 map[x - i + 1][y] = 0;
             }
+            
             return 1;
         }
     } else if(rot == 3){
@@ -937,6 +951,7 @@ uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover){
                 } else if(cRot == rot){
                     totalMoverCount++;
                 }
+                
                 distance++;
             } else if((cell == 5 && isPerpendicurlar(cRot, rot) == 1) || cell == 8){
                 state = 1;
@@ -967,6 +982,7 @@ uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover){
                 map[x][y - i] = map[x][y - i + 1];
                 map[x][y - i + 1] = 0;
             }
+            
             return 1;
         } else if(state == 1){
             return 0;
@@ -981,6 +997,7 @@ uint8_t pushCell(int x, int y, uint8_t rot, uint8_t isMover){
                 map[x][y - i] = map[x][y - i + 1];
                 map[x][y - i + 1] = 0;
             }
+            
             return 1;
         }
     }
