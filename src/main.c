@@ -211,6 +211,7 @@ void drawGame(){
 
         // NOTE: can remove this anytime
         wait_vbl_done();
+        
         if(game.running == 0 && game.settings == 0){
             char cell_str[25] = "";
             // strcat with using the last 6 bits:
@@ -262,6 +263,7 @@ void drawGame(){
             }
             gotoxy(20 - textL, 0);
             printf(cell_str);
+            
             if(game.lastRot != dir || game.shouldPrintRot == 1){
                 gotoxy(19, 1);
                 printf(dir == 0 ? "R" : dir == 1 ? "D" : dir == 2 ? "L" : "U");
@@ -279,6 +281,7 @@ void drawGame(){
             printf(" ");
         }
     }
+    
     wait_vbl_done();
 }
 
@@ -1036,31 +1039,9 @@ uint8_t checkIfSavedMap(){
     // DISABLE_RAM_MBC1;
 }
 
-uint8_t isPerpendicurlar(uint8_t rot1, uint8_t rot2){
-    // NOTE: maybe swtich to int for better performance(will let the usage of absulute values)
-
-    if(rot1 == rot2){
-        // optmizition purposes
-        return 0;
-    } else if(rot1 == 0 && rot2 == 1){
-        return 1;
-    } else if(rot1 == 1 && rot2 == 0){
-        return 1;
-    } else if(rot1 == 2 && rot2 == 3){
-        return 1;
-    } else if(rot1 == 3 && rot2 == 2){
-        return 1;
-    } else if(rot1 == 0 && rot2 == 3){
-        return 1;
-    } else if(rot1 == 3 && rot2 == 0){
-        return 1;
-    } else if(rot1 == 1 && rot2 == 2){
-        return 1;
-    } else if(rot1 == 2 && rot2 == 1) {
-        return 1;
-    } else {
-        return 0;
-    }
+uint8_t isPerpendicular(uint8_t rot1, uint8_t rot2) {
+    // I've just realised I was quite braind dead while writing the previous version of this. luckliy no one saw it
+    return rot1 != rot2 && (rot1 + rot2) % 2 == 1;
 }
 
 void adjustInputDelay(){
