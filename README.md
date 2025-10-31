@@ -4,6 +4,8 @@
 A cell machine remake for Gameboy written in C using gbdk2020.
 Original Cell machine by Sam Hogan.
 
+[A Youtube video on the game by **volearo**](https://www.youtube.com/watch?v=AZNXBlmdJtI)
+
 ## Controls:
 **A:** places cell or selects in menu  
 
